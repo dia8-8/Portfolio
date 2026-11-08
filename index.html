@@ -1,725 +1,418 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Adam Dia — Web Developer building with AI agents</title>
+	<meta name="description" content="Adam Dia graduated from the Université de Sherbrooke in April 2025 with a Bachelor's degree in Computer Science, and builds web apps. This portfolio is staffed by small AI agents: ask one about my work, or let one match my skills to your job description." />
+	<meta name="theme-color" content="#0b0e17" />
+	<link rel="icon" href="./assets/img/favicon.png" />
+	<script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js");</script>
 
-		<!-- FAVICON -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="./css/styles.css" />
+	<script src="./js/agents.config.js"></script>
+	<script src="./js/main.js" defer></script>
+</head>
 
-		<link rel="shortcut icon" href="./assets/img/favicon.png" type="" />
-		<!-- Google Fonts -->
+<body>
+	<canvas id="neural" aria-hidden="true"></canvas>
+	<a class="skip" href="#main">Skip to content</a>
 
-		<!-- BOXICONS -->
-		<link
-			href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
-			rel="stylesheet"
-		/>
+	<!-- ============ SVG ICON SPRITE ============ -->
+	<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+		<defs>
+			<symbol id="i-spark" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9L12 2zm7 11l.9 2.6 2.6.9-2.6.9L19 20l-.9-2.6-2.6-.9 2.6-.9L19 13z"/></symbol>
+			<symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+			<symbol id="i-up" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 19V5M6 11l6-6 6 6"/></symbol>
+			<symbol id="i-ext" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M8 7h9v9"/></symbol>
+			<symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></symbol>
+			<symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+			<symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+			<symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+			<symbol id="i-send" viewBox="0 0 24 24"><path fill="currentColor" d="M3.4 20.4l17.5-7.5a1 1 0 000-1.8L3.4 3.6a1 1 0 00-1.4 1.2L4 11l8 1-8 1-2 6.2a1 1 0 001.4 1.2z"/></symbol>
+			<symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1C5.923 1 1 5.923 1 12c0 4.867 3.149 8.979 7.521 10.436.55.096.756-.233.756-.522 0-.262-.013-1.128-.013-2.049-2.764.509-3.479-.674-3.699-1.292-.124-.317-.66-1.293-1.127-1.554-.385-.207-.936-.715-.014-.729.866-.014 1.485.797 1.691 1.128.99 1.663 2.571 1.196 3.204.907.096-.715.385-1.196.701-1.471-2.448-.275-5.005-1.224-5.005-5.432 0-1.196.426-2.186 1.128-2.956-.111-.275-.496-1.402.11-2.915 0 0 .921-.288 3.024 1.128a10.193 10.193 0 0 1 2.75-.371c.936 0 1.871.123 2.75.371 2.104-1.43 3.025-1.128 3.025-1.128.605 1.513.221 2.64.111 2.915.701.77 1.127 1.747 1.127 2.956 0 4.222-2.571 5.157-5.019 5.432.399.344.743 1.004.743 2.035 0 1.471-.014 2.654-.014 3.025 0 .289.206.632.756.522C19.851 20.979 23 16.854 23 12c0-6.077-4.922-11-11-11Z"/></symbol>
+			<symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></symbol>
+			<symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></g></symbol>
+			<symbol id="i-file" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></g></symbol>
+		</defs>
+	</svg>
 
-		<!-- ================ SWIPER CSS =================== -->
-		<link rel="stylesheet" href="./css/swiper-bundle.min.css" />
+	<!-- ============ HEADER ============ -->
+	<header class="header" id="header">
+		<nav class="nav container" aria-label="Main">
+			<a href="#top" class="nav__logo">Adam Dia</a>
 
-		<!-- CSS -->
-		<link rel="stylesheet" href="./css/styles.css" />
+			<ul class="nav__list" id="nav-list">
+				<li><a href="#agents" class="nav__link">Agents</a></li>
+				<li><a href="#work" class="nav__link">Work</a></li>
+				<li><a href="#skills" class="nav__link">Skills</a></li>
+				<li><a href="#about" class="nav__link">About</a></li>
+				<li><a href="#contact" class="nav__link">Contact</a></li>
+			</ul>
 
-		<!-- ============== Scroll reveal ============== -->
+			<div class="nav__actions">
+				<button class="chip-btn" id="open-chat" type="button" aria-haspopup="dialog">
+					<svg class="icon"><use href="#i-spark" /></svg>
+					<span>Ask my agent</span>
+					<kbd>Ctrl K</kbd>
+				</button>
+				<button class="icon-btn" id="theme-button" type="button" aria-label="Toggle light/dark theme">
+					<svg class="icon"><use href="#i-sun" /></svg>
+				</button>
+				<button class="icon-btn nav__toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-list">
+					<svg class="icon"><use href="#i-menu" /></svg>
+				</button>
+			</div>
+		</nav>
+	</header>
 
-		<script src="js/scrollreveal.min.js" defer></script>
-
-		<!-- ============ SWIPER JS ================== -->
-		<script src="./js/swiper-bundle.min.js" defer></script>
-
-		<!-- ============= MIXITUP Filter ================ -->
-
-		<script src="./js/mixitup.min.js" defer></script>
-		-->
-
-		<!-- ============= MAIN JS ================ -->
-		<script src="./js/main.js" defer></script>
-
-		<title>Adam's Portfolio Site</title>
-	</head>
-
-	<body>
-		<!-- =============== HEADER ================= -->
-
-		<header class="header" id="header">
-			<nav class="nav container">
-				<a href="#" class="nav__logo">Adam Dia</a>
-
-				<div class="nav__menu">
-					<ul class="nav__list">
-						<li class="nav__item">
-							<a href="#home" class="nav__link active-link">
-								<i class="bx bx-home"></i>
-							</a>
-						</li>
-
-						<li class="nav__item">
-							<a href="#about" class="nav__link">
-								<i class="bx bx-user"></i>
-							</a>
-						</li>
-
-						<li class="nav__item">
-							<a href="#skills" class="nav__link">
-								<i class="bx bx-book-open"></i>
-							</a>
-						</li>
-
-						<li class="nav__item">
-							<a href="#work" class="nav__link">
-								<i class="bx bxs-briefcase-alt-2"></i>
-							</a>
-						</li>
-
-						<li class="nav__item">
-							<a href="#contact" class="nav__link">
-								<i class="bx bx-message"></i>
-							</a>
-						</li>
-					</ul>
+	<main id="main">
+		<!-- ============ HERO ============ -->
+		<section class="hero" id="top">
+			<div class="hero__container container">
+				<div class="hero__copy">
+					<p class="eyebrow"><span class="pulse"></span> Open to junior web developer roles</p>
+					<h1 class="hero__title">
+						Hi, I'm <span class="grad">Adam&nbsp;Dia</span>.<br />
+						I build for the web, with agents in the loop.
+					</h1>
+					<p class="hero__lead">
+						Computer Science graduate (Université de Sherbrooke, April 2025). This portfolio is staffed by three small agents: one answers questions about me, one curates my projects, and one checks how my skills match <em>your</em> job description. They run right here in your browser.
+					</p>
+					<div class="hero__cta">
+						<button class="button button--primary" type="button" data-open-chat>
+							<svg class="icon"><use href="#i-spark" /></svg> Talk to my agent
+						</button>
+						<a href="#work" class="button button--ghost">See my work <svg class="icon"><use href="#i-arrow" /></svg></a>
+					</div>
+					<div class="hero__links">
+						<a href="https://github.com/dia8-8" target="_blank" rel="noopener" aria-label="GitHub"><svg class="icon"><use href="#i-github" /></svg> GitHub</a>
+						<a href="https://www.linkedin.com/in/adam-dia-976765213/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="icon"><use href="#i-linkedin" /></svg> LinkedIn</a>
+						<a href="./assets/pdf/Adam-Dia.pdf" download><svg class="icon"><use href="#i-file" /></svg> Résumé</a>
+					</div>
 				</div>
 
-				<!-- Theme Change Button -->
+				<!-- Live agent console -->
+				<aside class="console" aria-label="Live agent activity">
+					<div class="console__bar">
+						<span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+						<span class="console__title">agents.log</span>
+						<span class="console__live"><span class="pulse"></span> live</span>
+					</div>
+					<ul class="console__agents" id="agent-status">
+						<li data-agent="concierge"><span class="status"></span><b>Concierge</b><i>idle</i></li>
+						<li data-agent="curator"><span class="status"></span><b>Curator</b><i>idle</i></li>
+						<li data-agent="fitcheck"><span class="status"></span><b>Fit&#8209;Check</b><i>idle</i></li>
+					</ul>
+					<div class="console__log" id="agent-log" role="log" aria-live="off"></div>
+				</aside>
+			</div>
+		</section>
 
-				<i class="bx bx-moon change-theme" id="theme-button"></i>
-			</nav>
+		<!-- ============ AGENTS ============ -->
+		<section class="section" id="agents">
+			<div class="container">
+				<header class="section__head">
+					<p class="eyebrow">Meet the crew</p>
+					<h2 class="section__title">Three agents, one portfolio</h2>
+					<p class="section__lead">Each agent has one job, a small set of tools, and only knows what is written on this page. No hallucinated experience. Try them.</p>
+				</header>
+
+				<div class="agents">
+					<article class="agent-card">
+						<div class="agent-card__top">
+							<span class="agent-badge agent-badge--a"><svg class="icon"><use href="#i-spark" /></svg></span>
+							<h3>Concierge</h3>
+						</div>
+						<p>Answers questions about my background, skills, projects and how to reach me, and can jump you to any section.</p>
+						<p class="tools"><code>search_projects</code> <code>get_skills</code> <code>get_education</code> <code>navigate</code></p>
+						<button class="button button--ghost button--sm" type="button" data-open-chat>Open chat <svg class="icon"><use href="#i-arrow" /></svg></button>
+					</article>
+
+					<article class="agent-card">
+						<div class="agent-card__top">
+							<span class="agent-badge agent-badge--b"><svg class="icon"><use href="#i-spark" /></svg></span>
+							<h3>Curator</h3>
+						</div>
+						<p>Filters my projects from plain language. Try &ldquo;games&rdquo;, &ldquo;something with an API&rdquo; or &ldquo;ui&rdquo; in the Work section.</p>
+						<p class="tools"><code>filter_projects</code> <code>rank_by_relevance</code></p>
+						<a href="#work" class="button button--ghost button--sm">Go to Work <svg class="icon"><use href="#i-arrow" /></svg></a>
+					</article>
+
+					<article class="agent-card">
+						<div class="agent-card__top">
+							<span class="agent-badge agent-badge--c"><svg class="icon"><use href="#i-spark" /></svg></span>
+							<h3>Fit&#8209;Check</h3>
+						</div>
+						<p>Paste a job description. It matches it against my real skills and projects, and tells you plainly where I don't fit yet.</p>
+						<p class="tools"><code>parse_job</code> <code>match_skills</code> <code>find_gaps</code></p>
+						<a href="#fit" class="button button--ghost button--sm">Try it below <svg class="icon"><use href="#i-arrow" /></svg></a>
+					</article>
+				</div>
+
+				<!-- Fit-Check workspace -->
+				<div class="fit" id="fit">
+					<div class="fit__input">
+						<label for="fit-text" class="fit__label">Fit&#8209;Check &mdash; paste a job description</label>
+						<textarea id="fit-text" rows="9" placeholder="Paste a job posting here, e.g. “Junior Frontend Developer. HTML, CSS, JavaScript, React. Familiarity with REST APIs and Git. Nice to have: TypeScript…”"></textarea>
+						<div class="fit__row">
+							<button class="button button--primary" id="fit-run" type="button"><svg class="icon"><use href="#i-spark" /></svg> Run Fit&#8209;Check</button>
+							<button class="button button--ghost" id="fit-sample" type="button">Use a sample</button>
+							<span class="fit__note">Runs locally. Nothing you paste leaves your browser.</span>
+						</div>
+					</div>
+
+					<div class="fit__output" id="fit-out" aria-live="polite">
+						<div class="fit__empty">
+							<p>The agent's trace and brief will appear here.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ WORK ============ -->
+		<section class="section" id="work">
+			<div class="container">
+				<header class="section__head">
+					<p class="eyebrow">Selected work</p>
+					<h2 class="section__title">Things I've built</h2>
+					<p class="section__lead">Small, focused projects from my learning path. All live, all clickable.</p>
+				</header>
+
+				<div class="curator">
+					<svg class="icon curator__icon"><use href="#i-spark" /></svg>
+					<input id="curator-input" type="search" placeholder="Ask the Curator: “games”, “api”, “ui”, “maps”…" aria-label="Ask the Curator to filter projects" autocomplete="off" />
+					<div class="filters" id="filters" role="group" aria-label="Project filters">
+						<button type="button" class="filter is-active" data-filter="all">All</button>
+						<button type="button" class="filter" data-filter="app">Apps</button>
+						<button type="button" class="filter" data-filter="game">Games</button>
+						<button type="button" class="filter" data-filter="ui">UI</button>
+					</div>
+				</div>
+				<p class="curator__status" id="curator-status" aria-live="polite"></p>
+
+				<div class="projects" id="projects">
+					<article class="project" data-id="shop" data-tags="ui app" data-keywords="shopping cart store ecommerce e-commerce contentful cms headless products">
+						<a class="project__img" href="https://shopping-cart-contentful.vercel.app/" target="_blank" rel="noopener"><img src="./assets/img/projects/shop.webp" alt="Preview of the shopping cart project" loading="lazy" width="960" height="640" /></a>
+						<div class="project__body">
+							<h3 class="project__title">Shopping Cart</h3>
+							<p class="project__desc">Storefront with a working cart, with products served from the Contentful headless CMS.</p>
+							<div class="project__meta"><span class="tag">UI</span><span class="tag">App</span><span class="tag">Contentful</span></div>
+							<a class="project__link" href="https://shopping-cart-contentful.vercel.app/" target="_blank" rel="noopener">View live <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
+
+					<article class="project" data-id="todo" data-tags="app" data-keywords="todo to-do list tasks productivity">
+						<a class="project__img" href="https://better-to-do-list-one.vercel.app/" target="_blank" rel="noopener"><img src="./assets/img/projects/todolist.webp" alt="Preview of the to-do list project" loading="lazy" width="960" height="640" /></a>
+						<div class="project__body">
+							<h3 class="project__title">To-Do List</h3>
+							<p class="project__desc">A task list to add, complete and remove items.</p>
+							<div class="project__meta"><span class="tag">App</span></div>
+							<a class="project__link" href="https://better-to-do-list-one.vercel.app/" target="_blank" rel="noopener">View live <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
+
+					<article class="project" data-id="weather" data-tags="app" data-keywords="weather forecast api city temperature fetch data">
+						<a class="project__img" href="https://weather-app-tau-five.vercel.app/" target="_blank" rel="noopener"><img src="./assets/img/projects/weatherapp.webp" alt="Preview of the weather app" loading="lazy" width="960" height="640" /></a>
+						<div class="project__body">
+							<h3 class="project__title">Weather App</h3>
+							<p class="project__desc">Look up the weather for a city, with data fetched from a weather API.</p>
+							<div class="project__meta"><span class="tag">App</span><span class="tag">API</span></div>
+							<a class="project__link" href="https://weather-app-tau-five.vercel.app/" target="_blank" rel="noopener">View live <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
+
+					<article class="project" data-id="fitness" data-tags="app" data-keywords="fitness workout tracker map maps running cycling geolocation">
+						<a class="project__img" href="https://map-fitness-tracker.vercel.app/" target="_blank" rel="noopener"><img src="./assets/img/projects/fitness.webp" alt="Preview of the fitness tracker" loading="lazy" width="960" height="640" /></a>
+						<div class="project__body">
+							<h3 class="project__title">Map Fitness Tracker</h3>
+							<p class="project__desc">Log workouts and see them on an interactive map.</p>
+							<div class="project__meta"><span class="tag">App</span><span class="tag">Maps</span></div>
+							<a class="project__link" href="https://map-fitness-tracker.vercel.app/" target="_blank" rel="noopener">View live <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
+
+					<article class="project" data-id="tictactoe" data-tags="game" data-keywords="tic tac toe tictactoe game play logic javascript">
+						<a class="project__img" href="https://tic-tac-toe-javascript-opal.vercel.app/" target="_blank" rel="noopener"><img src="./assets/img/projects/tictactoe.webp" alt="Preview of the Tic-Tac-Toe game" loading="lazy" width="960" height="647" /></a>
+						<div class="project__body">
+							<h3 class="project__title">Tic-Tac-Toe</h3>
+							<p class="project__desc">The classic two-player game, with win and draw detection written in JavaScript.</p>
+							<div class="project__meta"><span class="tag">Game</span><span class="tag">JavaScript</span></div>
+							<a class="project__link" href="https://tic-tac-toe-javascript-opal.vercel.app/" target="_blank" rel="noopener">Play it <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
+
+					<article class="project" data-id="maze" data-tags="game" data-keywords="maze game play puzzle physics">
+						<a class="project__img" href="https://maze-project-ten.vercel.app/" target="_blank" rel="noopener"><img src="./assets/img/projects/maze.webp" alt="Preview of the maze game" loading="lazy" width="960" height="673" /></a>
+						<div class="project__body">
+							<h3 class="project__title">Maze Game</h3>
+							<p class="project__desc">Navigate a maze to reach the goal.</p>
+							<div class="project__meta"><span class="tag">Game</span></div>
+							<a class="project__link" href="https://maze-project-ten.vercel.app/" target="_blank" rel="noopener">Play it <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
+
+					<article class="project" data-id="timer" data-tags="app" data-keywords="timer countdown stopwatch time">
+						<a class="project__img" href="https://timer-project-delta.vercel.app/" target="_blank" rel="noopener"><img src="./assets/img/projects/timer.webp" alt="Preview of the timer project" loading="lazy" width="960" height="640" /></a>
+						<div class="project__body">
+							<h3 class="project__title">Timer</h3>
+							<p class="project__desc">A simple timer with start, pause and reset controls.</p>
+							<div class="project__meta"><span class="tag">App</span></div>
+							<a class="project__link" href="https://timer-project-delta.vercel.app/" target="_blank" rel="noopener">View live <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
+
+					<article class="project" data-id="signup" data-tags="ui" data-keywords="form validation signup sign up register design interface">
+						<a class="project__img" href="https://form-validation-dusky.vercel.app/" target="_blank" rel="noopener"><img src="./assets/img/projects/signup.webp" alt="Preview of the sign-up form" loading="lazy" width="960" height="604" /></a>
+						<div class="project__body">
+							<h3 class="project__title">Sign-Up Form</h3>
+							<p class="project__desc">Form layout and styling. The validation logic is still on my to-do list.</p>
+							<div class="project__meta"><span class="tag">UI</span><span class="tag">In progress</span></div>
+							<a class="project__link" href="https://form-validation-dusky.vercel.app/" target="_blank" rel="noopener">View live <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
+				</div>
+				<p class="empty" id="projects-empty" hidden>No matching projects. Try “game”, “api”, or “ui”.</p>
+			</div>
+		</section>
+
+		<!-- ============ SKILLS ============ -->
+		<section class="section" id="skills">
+			<div class="container">
+				<header class="section__head">
+					<p class="eyebrow">Toolkit</p>
+					<h2 class="section__title">What I work with</h2>
+					<p class="section__lead">Honest levels: I'm early in my career and still learning quickly.</p>
+				</header>
+
+				<div class="skills" id="skills-grid">
+					<div class="skill-group" data-group="Frontend">
+						<h3>Frontend</h3>
+						<ul>
+							<li data-skill="HTML" data-aliases="html5" data-level="Basic">HTML <span>Basic</span></li>
+							<li data-skill="CSS" data-aliases="css3" data-level="Basic">CSS <span>Basic</span></li>
+							<li data-skill="JavaScript" data-aliases="js javascript es6 ecmascript" data-level="Basic">JavaScript <span>Basic</span></li>
+							<li data-skill="React" data-aliases="react reactjs react.js" data-level="Basic">React <span>Basic</span></li>
+							<li data-skill="Next.js" data-aliases="next.js nextjs" data-level="Basic">Next.js <span>Basic</span></li>
+							<li data-skill="jQuery" data-aliases="jquery" data-level="Basic">jQuery <span>Basic</span></li>
+						</ul>
+					</div>
+					<div class="skill-group" data-group="Backend">
+						<h3>Backend, auth &amp; deploy</h3>
+						<ul>
+							<li data-skill="Node.js" data-aliases="node nodejs node.js" data-level="Basic">Node.js <span>Basic</span></li>
+							<li data-skill="Python" data-aliases="python" data-level="Basic">Python <span>Basic</span></li>
+							<li data-skill="PHP" data-aliases="php" data-level="Basic">PHP <span>Basic</span></li>
+							<li data-skill="MySQL" data-aliases="mysql sql" data-level="Basic">MySQL <span>Basic</span></li>
+							<li data-skill="NextAuth" data-aliases="nextauth next-auth auth.js" data-level="Basic">NextAuth <span>Basic</span></li>
+							<li data-skill="Vercel" data-aliases="vercel" data-level="Basic">Vercel <span>Basic</span></li>
+						</ul>
+					</div>
+					<div class="skill-group" data-group="Programming">
+						<h3>Programming</h3>
+						<ul>
+							<li data-skill="C/C++" data-aliases="c++ cpp" data-level="Basic">C/C++ <span>Basic</span></li>
+							<li data-skill="Java" data-aliases="java" data-level="Basic">Java <span>Basic</span></li>
+							<li data-skill="C#" data-aliases="c# csharp" data-level="Basic">C# <span>Basic</span></li>
+							<li data-skill="Lua" data-aliases="lua" data-level="Basic">Lua <span>Basic</span></li>
+						</ul>
+					</div>
+					<div class="skill-group" data-group="Design">
+						<h3>Design</h3>
+						<ul>
+							<li data-skill="Adobe Illustrator" data-aliases="illustrator" data-level="Basic">Illustrator <span>Basic</span></li>
+							<li data-skill="Adobe Photoshop" data-aliases="photoshop" data-level="Basic">Photoshop <span>Basic</span></li>
+						</ul>
+					</div>
+					<div class="skill-group skill-group--explore" data-group="Exploring">
+						<h3>Exploring now</h3>
+						<ul>
+							<li data-skill="LLM APIs" data-aliases="llm llms ai genai openai anthropic claude gpt" data-level="Exploring">LLM APIs <span>Exploring</span></li>
+							<li data-skill="AI agents" data-aliases="agent agents agentic mcp tool-use" data-level="Exploring">AI agents <span>Exploring</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ ABOUT ============ -->
+		<section class="section" id="about">
+			<div class="container about">
+				<div class="about__media">
+					<img src="./assets/img/projects/lookingforjob.webp" alt="Illustration: looking for a job" loading="lazy" width="960" height="742" />
+				</div>
+				<div class="about__copy">
+					<p class="eyebrow">About</p>
+					<h2 class="section__title">A student who ships</h2>
+					<p>
+						I graduated from the <b>Université de Sherbrooke</b> in <b>April 2025</b> with a Bachelor's degree in Computer Science. My path began earlier: I started Computer Science at the Lebanese University in <b>September 2018</b>, then added a double major in Systems Engineering at Antonine University in <b>September 2019</b>.
+					</p>
+					<p>
+						Alongside my degrees I keep building: small web apps, games and interfaces that teach me something new each time. Right now I'm learning how to design software that works <em>with</em> AI agents: tool-calling, retrieval, and keeping their answers grounded in real data. That's exactly how the agents on this page work.
+					</p>
+					<ul class="facts">
+						<li><b>Apr 2025</b><span>B.Sc. Computer Science, Université de Sherbrooke</span></li>
+						<li><b>8</b><span>Live projects</span></li>
+						<li><b>Now</b><span>Learning AI agents &amp; LLM APIs</span></li>
+					</ul>
+					<a href="#contact" class="button button--primary">Get in touch <svg class="icon"><use href="#i-arrow" /></svg></a>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ CONTACT ============ -->
+		<section class="section" id="contact">
+			<div class="container">
+				<div class="cta">
+					<p class="eyebrow">Contact</p>
+					<h2 class="section__title">Let's build something</h2>
+					<p class="section__lead">I'm looking for a junior web developer role. The fastest way to reach me is email.</p>
+					<div class="cta__row">
+						<a class="button button--primary" href="mailto:dia8_8@hotmail.com"><svg class="icon"><use href="#i-mail" /></svg> dia8_8@hotmail.com</a>
+						<a class="button button--ghost" href="https://www.linkedin.com/in/adam-dia-976765213/" target="_blank" rel="noopener"><svg class="icon"><use href="#i-linkedin" /></svg> LinkedIn</a>
+						<a class="button button--ghost" href="./assets/pdf/Adam-Dia.pdf" download><svg class="icon"><use href="#i-file" /></svg> Download résumé</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div class="container footer__row">
+			<span>© <span id="year">2026</span> Adam Dia</span>
+			<span class="footer__note">Agents on this page run locally and only use content from this page.</span>
+			<a href="#top" class="footer__top">Back to top <svg class="icon"><use href="#i-up" /></svg></a>
+		</div>
+	</footer>
+
+	<!-- ============ CONCIERGE CHAT DRAWER ============ -->
+	<div class="scrim" id="scrim" hidden></div>
+	<aside class="chat" id="chat" role="dialog" aria-modal="true" aria-labelledby="chat-title" hidden>
+		<header class="chat__head">
+			<div>
+				<h2 id="chat-title"><svg class="icon"><use href="#i-spark" /></svg> Concierge</h2>
+				<p class="chat__mode" id="chat-mode">Local agent · runs in your browser</p>
+			</div>
+			<button class="icon-btn" id="close-chat" type="button" aria-label="Close chat"><svg class="icon"><use href="#i-x" /></svg></button>
 		</header>
 
-		<!--  ================= MAIN ================= -->
-		<main class="main">
-			<!-- HOME -->
-			<section class="home section" id="home">
-				<div class="home__container container grid">
-					<div class="home__data">
-						<span class="home__greeting">Hello, I'm</span>
-						<h1 class="home__name">Adam Dia</h1>
-						<h3 class="home__education">Welcome to my Portfolio!</h3>
-
-						<div class="home__buttons">
-							<a
-								download=""
-								href="./assets/pdf/Adam-Dia-Resume.pdf"
-								class="button button--ghost"
-							>
-								Download CV</a
-							>
-							<a href="#about" class="button">About Me</a>
-						</div>
-					</div>
-					<div class="home__handle">
-						<img
-							src="./assets/img/home.png"
-							class="home__img"
-						/>
-					</div>
-
-					<div class="home__social">
-						<a
-							href="https://www.linkedin.com/in/adam-dia-976765213/"
-							target="_blank"
-							class="home__social-link"
-						>
-							<i class="bx bxl-linkedin-square"></i>
-						</a>
-						<a
-							href="https://github.com/dia8-8"
-							target="_blank"
-							class="home__social-link"
-						>
-							<i class="bx bxl-github"></i>
-						</a>
-					</div>
-
-					<a href="#about" class="home__scroll">
-						<i class="bx bx-mouse home__scroll-icon"></i>
-						<span class="home__scroll-name">Scroll Down</span>
-					</a>
-				</div>
-			</section>
-
-			<!-- About -->
-			<section class="about section" id="about">
-				<span class="section__subtitle">My Introduction</span>
-				<h2 class="section__title">About Me</h2>
-
-				<div class="about__container container grid">
-					<img src="./assets/img/lookingforjob.jpg" alt="" class="about__img" />
-
-					<div class="about__data">
-						<div class="about__info">
-							<div class="about__box">
-								<i class="bx bx-award about__icon"></i>
-								<h3 class="about__title">Experience</h3>
-								<span class="about__subtitle">Fresh</span>
-							</div>
-
-							<div class="about__box">
-								<i class="bx bx-briefcase-alt about__icon"></i>
-								<h3 class="about__title">Completed</h3>
-								<span class="about__subtitle">6+ Projects</span>
-							</div>
-
-							<div class="about__box">
-								<i class="bx bx-support about__icon"></i>
-								<h3 class="about__title">Support</h3>
-								<span class="about__subtitle">Online 24/7</span>
-							</div>
-						</div>
-						<p class="about__description">
-							Im a <i>recently gratuated</i> student in Computer Sciences. Started on
-							<b><i>Sep 2018 </i> </b>as a Computer Science student in the Lebanese University. On
-							<b><i>Sep 2019</i> </b> decided to do a double major in Systems Engineering at Antonine University.
-							I am now learning more stuff by my slef to add more knowledge and experience and stay on track with the web industry and continuously
-							learn to improve myself.
-						</p>
-
-						<a href="#contact" class="button">Contact Me</a>
-					</div>
-				</div>
-			</section>
-
-			<!-- SKILLS -->
-			<section class="skills sections" id="skills">
-				<span class="section__subtitle">My Abilities</span>
-				<h2 class="section__title">My Experience</h2>
-
-				<div class="skills__container container grid">
-					<div class="skills__content">
-						<h3 class="skills__title">Frontend Developer</h3>
-
-						<div class="skills__box">
-							<div class="skills__group">
-								<div class="skills__data">
-									<i class="bx bxs-badge-check"></i>
-									<div>
-										<h3 class="skills__name">HTML</h3>
-										<span class="skills__level">Basic</span>
-									</div>
-								</div>
-
-								<div class="skills__data">
-									<i class="bx bxs-badge-check"></i>
-									<div>
-										<h3 class="skills__name">CSS</h3>
-										<span class="skills__level">Basic</span>
-									</div>
-								</div>
-								<!-- 
-								<div class="skills__data">
-									<i class="bx bxs-badge-check"></i>
-									<div>
-										<h3 class="skills__name">Bootstrap</h3>
-										<span class="skills__level">Basic</span>
-									</div>
-								</div> -->
-							</div>
-
-							<div class="skills__group">
-								<div class="skills__data">
-									<i class="bx bxs-badge-check"></i>
-									<div>
-										<h3 class="skills__name">JavaScript</h3>
-										<span class="skills__level">Basic</span>
-									</div>
-								</div>
-
-								<!-- <div class="skills__data">
-									<i class="bx bxs-badge-check"></i>
-									<div>
-										<h3 class="skills__name">React</h3>
-										<span class="skills__level">Basic</span>
-									</div>
-								</div> -->
-
-								<div class="skills__data">
-									<i class="bx bxs-badge-check"></i>
-									<div>
-										<h3 class="skills__name">React.js</h3>
-										<span class="skills__level">Basic</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="skills__content">
-						<h3 class="skills__title">Backend Developer</h3>
-
-						<div class="skills__box">
-							<div class="skills__group">
-								<div class="skills__data">
-									<i class="bx bxs-badge-check"></i>
-									<div>
-										<h3 class="skills__name">Node JS</h3>
-										<span class="skills__level">Basic</span>
-									</div>
-								</div> 
-								<div class="skills__data">
-									<i class="bx bxs-badge-check"></i>
-									<div>
-										<h3 class="skills__name">Python</h3>
-										<span class="skills__level">Basic</span>
-									</div>
-								</div> 
-							</div>
-
-							<div class="skills__group">
-								<div class="skills__data">
-									<i class="bx bxs-badge-check"></i>
-									<div>
-										<h3 class="skills__name">PHP</h3>
-										<span class="skills__level">Basic</span>
-									</div>
-								</div> 
-								<div class="skills__data">
-									<i class="bx bxs-badge-check"></i>
-									<div>
-										<h3 class="skills__name">My SQL</h3>
-										<span class="skills__level">Basic</span>
-									</div>
-								</div> 
-							</div>
-						</div>
-					</div>
-
-					<div class="skills__content">
-						<h3 class="skills__title">UI/UX Web Design</h3>
-
-						<div class="skills__box">
-							<div class="skills__group">
-								<div class="skills__data">
-									<i class="bx bxs-badge-check"></i>
-									<div>
-										<h3 class="skills__name">Adobe Illustrator</h3>
-										<span class="skills__level">Basic</span>
-									</div>
-								</div>
-								<div class="skills__data">
-									<i class="bx bxs-badge-check"></i>
-									<div>
-										<h3 class="skills__name">Adobe Photoshop</h3>
-										<span class="skills__level">Basic</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="skills__content">
-						<h3 class="skills__title">App Developing</h3>
-
-						<div class="skills__box">
-							<div class="skills__group">
-								<div class="skills__data">
-									<i class="bx bxs-badge-check"></i>
-									<div>
-										<h3 class="skills__name">C/C++</h3>
-										<span class="skills__level">Basic</span>
-									</div>
-								</div>
-								<div class="skills__data">
-									<i class="bx bxs-badge-check"></i>
-									<div>
-										<h3 class="skills__name">Java</h3>
-										<span class="skills__level">Basic</span>
-									</div>
-								</div>
-							</div>
-
-							<div class="skills__group">
-								<div class="skills__data">
-									<i class="bx bxs-badge-check"></i>
-									<div>
-										<h3 class="skills__name">Python</h3>
-										<span class="skills__level">Basic</span>
-									</div>
-								</div>
-								<div class="skills__data">
-									<i class="bx bxs-badge-check"></i>
-									<div>
-										<h3 class="skills__name">C#</h3>
-										<span class="skills__level">Basic</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-
-			<!-- ================ Services ================= -->
-
-			<section class="services section">
-				<span class="section__subtitle">My Services</span>
-				<h2 class="section__title">What I Offer</h2>
-
-				<div class="services__container container grid">
-					<div class="services__card">
-						<h3 class="services__title">
-							Web <br />
-							Developer
-						</h3>
-
-						<span class="services__button"
-							>See more <i class="bx bx-right-arrow services__icon"></i
-						></span>
-
-						<div class="services__modal">
-							<div class="services__modal-content">
-								<i class="bx bx-x services__modal-close"></i>
-
-								<h3 class="services__modal-title">Product Designer</h3>
-
-								<p class="services__modal-description">
-									Strive to provide excellent quality of work to clients and
-									companies. Willing to learn new things to take the task on
-								</p>
-
-								<ul class="services__modal-list">
-									<li class="services__modal-item">
-										<i class="bx bx-check services__modal-icon"></i>
-										<p class=" ">Develop User Interface</p>
-									</li>
-
-									<li class="services__modal-item">
-										<i class="bx bx-check services__modal-icon"></i>
-										<p class="services__modal-info">Webpage Development</p>
-									</li>
-
-									<li class="services__modal-item">
-										<i class="bx bx-check services__modal-icon"></i>
-										<p class="services__modal-info">
-											Maintaining and improving website
-										</p>
-									</li>
-
-									<li class="services__modal-item">
-										<i class="bx bx-check services__modal-icon"></i>
-										<p class="services__modal-info">
-											Optimizing applications for maximum speed
-										</p>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-
-					<!-- To be added with more experience
-
-					<div class="services__card">
-						<h3 class="services__title">
-							UI / UX <br />
-							Designer
-						</h3>
-
-						<span class="services__button"
-							>See more <i class="bx bx-right-arrow services__icon"></i
-						></span>
-
-						<div class="services__modal">
-							<div class="services__modal-content">
-								<i class="bx bx-x services__modal-close"></i>
-
-								<h3 class="services__modal-title">UI / UX Designer</h3>
-								<p class="services__modal-description">
-									Strive to provide excellent quality of work to clients and
-									companies. Willing to learn new things to take the task on
-								</p>
-
-								<ul class="services__modal-list">
-									<li class="services__modal-item">
-										<i class="bx bx-check services__modal-icon"></i>
-										<p class="services__modal-info">Develop User Interface</p>
-									</li>
-
-									<li class="services__modal-item">
-										<i class="bx bx-check services__modal-icon"></i>
-										<p class="services__modal-info">Webpage Development</p>
-									</li>
-
-									<li class="services__modal-item">
-										<i class="bx bx-check services__modal-icon"></i>
-										<p class="services__modal-info">
-											Design and mockups of products for companies
-										</p>
-									</li>
-
-									<li class="services__modal-item">
-										<i class="bx bx-check services__modal-icon"></i>
-										<p class="services__modal-info"></p>
-									</li>
-
-									<li class="services__modal-item">
-										<i class="bx bx-check services__modal-icon"></i>
-										<p class="services__modal-info"></p>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div> -->
-				</div>
-			</section>
-
-			<!-- ====================== WORK ====================== -->
-
-			<section class="work section" id="work">
-				<span class="section__subtitle">My Portfolio</span>
-
-				<h2 class="section__title">Recent Works</h2>
-
-				<div class="work__filters">
-					<span class="work__item active-work" data-filter="all">All</span>
-					<span class="work__item" data-filter=".web">Web</span>
-					<span class="work__item" data-filter=".design">Design</span>
-					<!-- <span class="work__item" data-filter=".movil">Movil</span> -->
-				</div>
-
-				<div class="work__container container grid">
-					<div class="work__card mix design">
-						<a
-							href="https://shopping-cart-contentful.vercel.app/"
-							class="work__button"
-							target="blank"
-							><img src="./assets/img/shop.jpg" alt="" class="work__img"
-						/></a>
-
-						<h3 class="work__title">Shopping Cart using Contentful</h3>
-
-						<a
-							href="https://shopping-cart-contentful.vercel.app/"
-							class="work__button"
-							target="blank"
-						>
-							Check it out! <i class="bx bx-right-arrow work__icon"></i>
-						</a>
-					</div>
-
-					<div class="work__card mix web">
-						<a
-							href="https://better-to-do-list-one.vercel.app/"
-							class="work__button"
-							target="blank"
-							><img src="./assets/img/todolist.jpg" alt="" class="work__img"
-						/></a>
-
-						<h3 class="work__title">Todo List</h3>
-
-						<a
-							href="https://better-to-do-list-one.vercel.app/"
-							class="work__button"
-							target="blank"
-						>
-							Check it out! <i class="bx bx-right-arrow work__icon"></i>
-						</a>
-					</div>
-					<div class="work__card mix web">
-						<a
-							href="https://weather-app-tau-five.vercel.app/"
-							class="work__button"
-							target="blank"
-							><img src="./assets/img/weatherapp.jpg" alt="" class="work__img"
-						/></a>
-
-						<h3 class="work__title">Weather App</h3>
-
-						<a
-							href="https://weather-app-tau-five.vercel.app/"
-							class="work__button"
-							target="blank"
-						>
-							Check it out! <i class="bx bx-right-arrow work__icon"></i>
-						</a>
-					</div>
-
-					<div class="work__card mix web">
-						<a
-							href="https://map-fitness-tracker.vercel.app/"
-							class="work__button"
-							target="blank"
-							><img src="./assets/img/fitness.jpg" alt="" class="work__img"
-						/></a>
-
-						<h3 class="work__title">Fitness Tracking</h3>
-
-						<a
-							href="https://map-fitness-tracker.vercel.app/"
-							class="work__button"
-							target="blank"
-						>
-							Check it out! <i class="bx bx-right-arrow work__icon"></i>
-						</a>
-					</div>
-
-					<div class="work__card mix web">
-						<a
-							href="https://tic-tac-toe-javascript-opal.vercel.app/"
-							class="work__button"
-							target="blank"
-							><img src="./assets/img/tictactoe.jpg" alt="" class="work__img"
-						/></a>
-
-						<h3 class="work__title">TicTacToe</h3>
-
-						<a
-							href="https://tic-tac-toe-javascript-opal.vercel.app/"
-							class="work__button"
-							target="blank"
-						>
-							Play it! <i class="bx bx-right-arrow work__icon"></i>
-						</a>
-					</div>
-					<div class="work__card mix design">
-						<a
-							href="https://form-validation-dusky.vercel.app/"
-							class="work__button"
-							target="blank"
-							><img src="./assets/img/signup.jpg" alt="" class="work__img"
-						/></a>
-
-						<h3 class="work__title">Form Validation(function not added yet)</h3>
-
-						<a
-							href="https://form-validation-dusky.vercel.app/"
-							class="work__button"
-							target="blank"
-						>
-							Check it out! <i class="bx bx-right-arrow work__icon"></i>
-						</a>
-					</div>
-					<div class="work__card mix web">
-						<a
-							href="https://timer-project-delta.vercel.app/"
-							class="work__button"
-							target="blank"
-							><img src="./assets/img/timer.jpg" alt="" class="work__img"
-						/></a>
-
-						<h3 class="work__title">Timer</h3>
-
-						<a
-							href="https://timer-project-delta.vercel.app/"
-							class="work__button"
-							target="blank"
-						>
-							Check it out! <i class="bx bx-right-arrow work__icon"></i>
-						</a>
-					</div>
-
-					<div class="work__card mix web">
-						<a
-							href="https://maze-project-ten.vercel.app/"
-							class="work__button"
-							target="blank"
-						>
-							<img src="./assets/img/maze.jpg" alt="" class="work__img" />
-						</a>
-
-						<h3 class="work__title">Maze Game</h3>
-
-						<a
-							href="https://maze-project-ten.vercel.app/"
-							class="work__button"
-							target="blank"
-						>
-							Play it! <i class="bx bx-right-arrow work__icon"></i>
-						</a>
-					</div>
-
-					<!-- 
-					<div class="work__card mix movil">
-						<img src="/main/assets/img/work3.jpg" alt="" class="work__img" />
-
-						<h3 class="work__title">DEMO</h3>
-
-						<a href="#" class="work__button">
-							Demo <i class="bx bx-right-arrow work__icon"></i>
-						</a>
-					</div> -->
-				</div>
-			</section>
-
-			<!-- ================== TESTIMONIALS =========== -->
-
-			
-			<!-- ======================== CONTACT =========================== -->
-			<section class="contact section" id="contact">
-				<span class="section__subtitle">Get in Touch</span>
-				<h2 class="section__title">Contact Me</h2>
-
-				<div class="contact__container container grid">
-					<div class="contact__content">
-
-						<div class="contact__info">
-							<div class="contact__card">
-								<i class="bx bx-mail-send"></i>
-								<h3 class="contact__card-title">Email</h3>
-								<span class="contact__card-data">dia8_8@hotmail.com</span>
-
-								<a
-									href="mailto:dia8_8@hotmail.com"
-									target="_blank"
-									class="contact__button"
-								>
-									Write me
-									<i class="bx bx-right-arrow contact__button-icon"></i>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-		</main>
-		<!--  ================== FOOTER ================= -->
-
-		<footer class="footer">
-			<div class="footer__container container">
-				<h1 class="footer__title">Adam Dia</h1>
-
-				<ul class="footer__list">
-					<li>
-						<a href="#about" class="footer__link">About</a>
-					</li>
-
-					<li>
-						<a href="#skills" class="footer__link">Skills</a>
-					</li>
-
-					<li>
-						<a href="#services" class="footer__link">Services</a>
-					</li>
-
-					<li>
-						<a href="#work" class="footer__link">Projects</a>
-					</li>
-
-				</ul>
-
-				<ul class="footer__social">
-					<a
-						href="https://linkedin.com/in/adam-dia-976765213/"
-						target="_blank"
-						class="footer__social-link"
-					>
-						<i class="bx bxl-linkedin-square"></i>
-					</a>
-
-					<a
-						href="https://github.com/dia8-8"
-						target="_blank"
-						class="footer__social-link"
-					>
-						<i class="bx bxl-github"></i>
-					</a>
-
-					<!-- <a href="https://instagram.com"" target="_blank" class="footer__social-link">
-						<i class="bx bxl-instagram"></i>
-					</a> -->
-				</ul>
-
-				<span class="footer__copy">© Adam. All rights reserved</span>
-			</div>
-		</footer>
-	</body>
+		<div class="chat__scroll" id="chat-scroll" aria-live="polite"></div>
+
+		<div class="chat__suggest" id="chat-suggest"></div>
+
+		<form class="chat__form" id="chat-form" autocomplete="off">
+			<label for="chat-input" class="sr">Message the Concierge</label>
+			<input id="chat-input" type="text" placeholder="Ask about my projects, skills, education…" maxlength="2000" />
+			<button class="send" type="submit" aria-label="Send"><svg class="icon"><use href="#i-send" /></svg></button>
+		</form>
+	</aside>
+
+	<button class="fab" id="fab" type="button" aria-label="Ask my agent" data-open-chat>
+		<svg class="icon"><use href="#i-spark" /></svg>
+	</button>
+</body>
 </html>
