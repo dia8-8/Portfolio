@@ -168,9 +168,9 @@
 	};
 	// Technologies I do NOT list. If a job asks for them the agents say so plainly.
 	const NOT_YET = [
-		["TypeScript", ["typescript"]], ["Vue", ["vue", "vue.js", "vuejs"]],
+		["Vue", ["vue", "vue.js", "vuejs"]],
 		["Angular", ["angular"]], ["Svelte", ["svelte"]], ["Redux", ["redux"]], ["GraphQL", ["graphql"]],
-		["Tailwind", ["tailwind", "tailwindcss"]], ["Sass", ["sass", "scss"]], ["Bootstrap", ["bootstrap"]],
+		["Sass", ["sass", "scss"]], ["Bootstrap", ["bootstrap"]],
 		["MongoDB", ["mongodb", "mongo"]], ["PostgreSQL", ["postgres", "postgresql"]], ["Docker", ["docker"]],
 		["Kubernetes", ["kubernetes", "k8s"]], ["AWS", ["aws", "amazon web services"]], ["Azure", ["azure"]],
 		["Google Cloud", ["gcp", "google cloud"]], ["CI/CD", ["ci/cd", "cicd", "github actions", "jenkins"]],
@@ -178,7 +178,7 @@
 		["Django", ["django"]], ["Flask", ["flask"]], ["Spring", ["spring", "spring boot"]], [".NET", [".net", "asp.net"]],
 		["Laravel", ["laravel"]], ["Firebase", ["firebase"]], ["Figma", ["figma"]], ["Ruby", ["ruby", "rails"]],
 		["Go", ["golang"]], ["Rust", ["rust"]], ["Swift", ["swift", "swiftui"]], ["Kotlin", ["kotlin"]],
-		["Webpack / Vite", ["webpack", "vite"]],
+		["Webpack", ["webpack"]],
 	];
 	// Concepts I can back with a real project (or my public GitHub).
 	const CONCEPTS = [
@@ -269,7 +269,7 @@ Requirements:
 - Experience with React
 - Comfortable consuming REST APIs
 - Familiarity with Git
-- Nice to have: TypeScript, Tailwind, Docker`;
+- Nice to have: GraphQL, Docker, AWS`;
 	$("#fit-sample").addEventListener("click", () => { fitText.value = SAMPLE_JD; fitText.focus(); });
 
 	function analyzeJob(jd) {
@@ -437,7 +437,7 @@ Requirements:
 
 	/* Local brain: intent routing over the page's own content. Returns { html, trace, run? } */
 	function localAnswer(text) {
-		const t = text.toLowerCase().trim();
+		const t = text.toLowerCase().trim().replace(/full[- ]stack/g, "fullstack");
 		const trace = [];
 
 		// 1. a pasted job description → hand off to Fit-Check
@@ -502,7 +502,7 @@ Requirements:
 		// 8. experience
 		if (/(experience|years|intern|professional|employ|job history|worked)/.test(t)) {
 			trace.push("get_experience()");
-			return { trace, html: `I'm a recent graduate looking for a first role, so there's no professional job history yet. What I can show is real, working code: ${projects.length} live projects. Ask me to "show me apps" or "show me games".` };
+			return { trace, html: `I'm a recent graduate looking for a first role, so there's no professional job history yet. What I can show is real, working code: ${projects.length} projects, with live demos or code on GitHub. Ask me to "show me apps" or "show me games".` };
 		}
 
 		// 9. projects

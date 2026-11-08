@@ -180,7 +180,7 @@
 				<header class="section__head">
 					<p class="eyebrow">Selected work</p>
 					<h2 class="section__title">Things I've built</h2>
-					<p class="section__lead">Small, focused projects from my learning path. All live, all clickable.</p>
+					<p class="section__lead">From small practice apps to full-stack builds. Live demos where they're hosted, code on GitHub for the rest.</p>
 				</header>
 
 				<div class="curator">
@@ -188,14 +188,46 @@
 					<input id="curator-input" type="search" placeholder="Ask the Curator: “games”, “api”, “ui”, “maps”…" aria-label="Ask the Curator to filter projects" autocomplete="off" />
 					<div class="filters" id="filters" role="group" aria-label="Project filters">
 						<button type="button" class="filter is-active" data-filter="all">All</button>
+						<button type="button" class="filter" data-filter="fullstack">Full-stack</button>
 						<button type="button" class="filter" data-filter="app">Apps</button>
+						<button type="button" class="filter" data-filter="site">Sites</button>
 						<button type="button" class="filter" data-filter="game">Games</button>
 						<button type="button" class="filter" data-filter="ui">UI</button>
+						<button type="button" class="filter" data-filter="earlier">Earlier work</button>
 					</div>
 				</div>
 				<p class="curator__status" id="curator-status" aria-live="polite"></p>
 
 				<div class="projects" id="projects">
+					<article class="project" data-id="vcm" data-tags="fullstack app" data-keywords="admin dashboard management full-stack fullstack react express prisma jwt authentication recharts qr scanner railway node api database">
+						<a class="project__img project__cover" style="--h:262" href="https://github.com/dia8-8/vc-management" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><b>React · Express · Prisma</b></a>
+						<div class="project__body">
+							<h3 class="project__title">VC Management</h3>
+							<p class="project__desc">Full-stack admin system: a React dashboard (routing, Recharts charts, QR-code scanning) on an Express + Prisma API with JWT login.</p>
+							<div class="project__meta"><span class="tag">Full-stack</span><span class="tag">React</span><span class="tag">Express</span><span class="tag">Prisma</span></div>
+							<a class="project__link" href="https://github.com/dia8-8/vc-management" target="_blank" rel="noopener">View code <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
+					<article class="project" data-id="glory" data-tags="fullstack site" data-keywords="glory rp life fivem roleplay role play gta community arabic english bilingual rtl gaming discord website next.js nextjs typescript nextauth next-auth supabase tailwind framer motion authentication vercel database shop vip jobs rules streamers">
+						<a class="project__img" href="https://gloryrp.vercel.app/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="./assets/img/projects/glory.webp" alt="" loading="lazy" width="800" height="533" /></a>
+						<div class="project__body">
+							<h3 class="project__title">Glory RP</h3>
+							<p class="project__desc">Website for a FiveM roleplay community, in Arabic and English: content creators, server rules, job applications, a VIP shop and sign-in. Built with Next.js, TypeScript, NextAuth and Supabase.</p>
+							<div class="project__meta"><span class="tag">Full-stack</span><span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Arabic/English</span></div>
+							<a class="project__link" href="https://gloryrp.vercel.app/" target="_blank" rel="noopener">View live <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
+
+					<article class="project" data-id="corona" data-tags="site ui" data-keywords="corona halal website site react typescript vite tailwind frontend ui">
+						<a class="project__img project__cover" style="--h:160" href="https://github.com/dia8-8/corona-halal" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><b>React · TypeScript · Vite</b></a>
+						<div class="project__body">
+							<h3 class="project__title">Corona Halal</h3>
+							<p class="project__desc">Website built with React, TypeScript and Vite, styled with Tailwind CSS.</p>
+							<div class="project__meta"><span class="tag">Site</span><span class="tag">React</span><span class="tag">TypeScript</span></div>
+							<a class="project__link" href="https://github.com/dia8-8/corona-halal" target="_blank" rel="noopener">View code <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
+
 					<article class="project" data-id="shop" data-tags="ui app" data-keywords="shopping cart store ecommerce e-commerce contentful cms headless products">
 						<a class="project__img" href="https://shopping-cart-contentful.vercel.app/" target="_blank" rel="noopener"><img src="./assets/img/projects/shop.webp" alt="Preview of the shopping cart project" loading="lazy" width="960" height="640" /></a>
 						<div class="project__body">
@@ -275,6 +307,66 @@
 							<a class="project__link" href="https://form-validation-dusky.vercel.app/" target="_blank" rel="noopener">View live <svg class="icon"><use href="#i-ext" /></svg></a>
 						</div>
 					</article>
+
+					<article class="project" data-id="gloryvip" data-tags="site" data-keywords="glory vip website site static html landing page">
+						<a class="project__img project__cover" style="--h:28" href="https://github.com/dia8-8/gloryVIP" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><b>HTML</b></a>
+						<div class="project__body">
+							<h3 class="project__title">Glory VIP</h3>
+							<p class="project__desc">Single-page static website in HTML, with its own images and logo.</p>
+							<div class="project__meta"><span class="tag">Site</span><span class="tag">HTML</span></div>
+							<a class="project__link" href="https://github.com/dia8-8/gloryVIP" target="_blank" rel="noopener">View code <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
+
+					<article class="project" data-id="ether" data-tags="site" data-keywords="etherweb ether website site html css javascript frontend">
+						<a class="project__img project__cover" style="--h:200" href="https://github.com/dia8-8/EtherWeb" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><b>HTML · CSS · JavaScript</b></a>
+						<div class="project__body">
+							<h3 class="project__title">EtherWeb</h3>
+							<p class="project__desc">Website built with plain HTML, CSS and JavaScript.</p>
+							<div class="project__meta"><span class="tag">Site</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+							<a class="project__link" href="https://github.com/dia8-8/EtherWeb" target="_blank" rel="noopener">View code <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
+
+					<article class="project" data-id="face" data-tags="earlier" data-keywords="face recognition recognize detect java opencv javacv computer vision application desktop">
+						<a class="project__img project__cover" style="--h:350" href="https://github.com/dia8-8/Face-Recognize" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><b>Java · OpenCV</b></a>
+						<div class="project__body">
+							<h3 class="project__title">Face Recognition App</h3>
+							<p class="project__desc">Java application that detects and recognizes faces, using the OpenCV / JavaCV libraries.</p>
+							<div class="project__meta"><span class="tag">Earlier work</span><span class="tag">Java</span></div>
+							<a class="project__link" href="https://github.com/dia8-8/Face-Recognize" target="_blank" rel="noopener">View code <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
+
+					<article class="project" data-id="quiz" data-tags="earlier" data-keywords="quiz app java application questions">
+						<a class="project__img project__cover" style="--h:45" href="https://github.com/dia8-8/quiz-app" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><b>Java</b></a>
+						<div class="project__body">
+							<h3 class="project__title">Quiz App</h3>
+							<p class="project__desc">Java application for taking quizzes.</p>
+							<div class="project__meta"><span class="tag">Earlier work</span><span class="tag">Java</span></div>
+							<a class="project__link" href="https://github.com/dia8-8/quiz-app" target="_blank" rel="noopener">View code <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
+
+					<article class="project" data-id="aspnet" data-tags="earlier game" data-keywords="asp.net aspnet game c# csharp dotnet .net play">
+						<a class="project__img project__cover" style="--h:120" href="https://github.com/dia8-8/ASP.NET-game" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><b>C# · ASP.NET</b></a>
+						<div class="project__body">
+							<h3 class="project__title">ASP.NET Game</h3>
+							<p class="project__desc">A game built with C# and ASP.NET.</p>
+							<div class="project__meta"><span class="tag">Earlier work</span><span class="tag">Game</span><span class="tag">C#</span></div>
+							<a class="project__link" href="https://github.com/dia8-8/ASP.NET-game" target="_blank" rel="noopener">View code <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
+
+					<article class="project" data-id="gym" data-tags="earlier site" data-keywords="gym website web design fitness html">
+						<a class="project__img project__cover" style="--h:15" href="https://github.com/dia8-8/Gym-Web" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><b>HTML</b></a>
+						<div class="project__body">
+							<h3 class="project__title">Gym Website</h3>
+							<p class="project__desc">Web design for a gym, built in HTML.</p>
+							<div class="project__meta"><span class="tag">Earlier work</span><span class="tag">Site</span><span class="tag">HTML</span></div>
+							<a class="project__link" href="https://github.com/dia8-8/Gym-Web" target="_blank" rel="noopener">View code <svg class="icon"><use href="#i-ext" /></svg></a>
+						</div>
+					</article>
 				</div>
 				<p class="empty" id="projects-empty" hidden>No matching projects. Try “game”, “api”, or “ui”.</p>
 			</div>
@@ -299,6 +391,9 @@
 							<li data-skill="React" data-aliases="react reactjs react.js" data-level="Basic">React <span>Basic</span></li>
 							<li data-skill="Next.js" data-aliases="next.js nextjs" data-level="Basic">Next.js <span>Basic</span></li>
 							<li data-skill="jQuery" data-aliases="jquery" data-level="Basic">jQuery <span>Basic</span></li>
+							<li data-skill="TypeScript" data-aliases="typescript" data-level="Basic">TypeScript <span>Basic</span></li>
+							<li data-skill="Tailwind CSS" data-aliases="tailwind tailwindcss" data-level="Basic">Tailwind CSS <span>Basic</span></li>
+							<li data-skill="Vite" data-aliases="vite" data-level="Basic">Vite <span>Basic</span></li>
 						</ul>
 					</div>
 					<div class="skill-group" data-group="Backend">
@@ -310,6 +405,9 @@
 							<li data-skill="MySQL" data-aliases="mysql sql" data-level="Basic">MySQL <span>Basic</span></li>
 							<li data-skill="NextAuth" data-aliases="nextauth next-auth auth.js" data-level="Basic">NextAuth <span>Basic</span></li>
 							<li data-skill="Vercel" data-aliases="vercel" data-level="Basic">Vercel <span>Basic</span></li>
+							<li data-skill="Express" data-aliases="express expressjs" data-level="Basic">Express <span>Basic</span></li>
+							<li data-skill="Prisma" data-aliases="prisma" data-level="Basic">Prisma <span>Basic</span></li>
+							<li data-skill="Supabase" data-aliases="supabase" data-level="Basic">Supabase <span>Basic</span></li>
 						</ul>
 					</div>
 					<div class="skill-group" data-group="Programming">
@@ -386,7 +484,7 @@
 		<text y="172"><tspan x="100" fill="var(--accent-2)">degree</tspan><tspan fill="var(--text-dim)">:</tspan><tspan fill="var(--ok)" dx="10.8">"B.Sc. Computer Science"</tspan><tspan fill="var(--text-dim)">,</tspan></text>
 		<text y="201"><tspan x="100" fill="var(--accent-2)">school</tspan><tspan fill="var(--text-dim)">:</tspan><tspan fill="var(--ok)" dx="10.8">"Université de Sherbrooke"</tspan><tspan fill="var(--text-dim)">,</tspan></text>
 		<text y="230"><tspan x="100" fill="var(--accent-2)">learning</tspan><tspan fill="var(--text-dim)">: [</tspan><tspan fill="var(--ok)">"AI agents"</tspan><tspan fill="var(--text-dim)">,</tspan><tspan fill="var(--ok)" dx="10.8">"LLM APIs"</tspan><tspan fill="var(--text-dim)">],</tspan></text>
-		<text y="259"><tspan x="100" fill="var(--accent-2)">shipped</tspan><tspan fill="var(--text-dim)">:</tspan><tspan fill="var(--warn)" dx="10.8">8</tspan><tspan fill="var(--text-dim)">,</tspan><tspan fill="var(--text-dim)" fill-opacity=".7" dx="10.8">// live projects</tspan></text>
+		<text y="259"><tspan x="100" fill="var(--accent-2)">projects</tspan><tspan fill="var(--text-dim)">:</tspan><tspan fill="var(--warn)" dx="10.8">17</tspan><tspan fill="var(--text-dim)">,</tspan><tspan fill="var(--text-dim)" fill-opacity=".7" dx="10.8">// built so far</tspan></text>
 		<text y="288"><tspan x="78" fill="var(--text-dim)">};</tspan></text>
 	</g>
 
@@ -432,7 +530,7 @@
 					</p>
 					<ul class="facts">
 						<li><b>Apr 2025</b><span>B.Sc. Computer Science, Université de Sherbrooke</span></li>
-						<li><b>8</b><span>Live projects</span></li>
+						<li><b>17</b><span>Projects built</span></li>
 						<li><b>Now</b><span>Learning AI agents &amp; LLM APIs</span></li>
 					</ul>
 					<a href="#contact" class="button button--primary">Get in touch <svg class="icon"><use href="#i-arrow" /></svg></a>
