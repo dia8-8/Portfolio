@@ -75,8 +75,23 @@ function runTool(name, input) {
 
 /* ------------------------------------------------------------------ */
 
-export async function GET() {
-	return Response.json({ live: !!client }, { headers: { "Cache-Control": "no-store" } });
+export async function GET(req) {
+	const body = { live: !!client };
+	// TEMPORARY diagnostic (remove once the key is confirmed working): /api/chat?diag=1
+	// Reports variable NAMES and the shape of the value, never the value itself.
+	if (new URL(req.url).searchParams.get("diag") === "1") {
+		body.diag = {
+			vercelEnv: process.env.VERCEL_ENV || null,
+			node: process.version,
+			anthropicVars: Object.keys(process.env)
+				.filter((k) => /anthropic|claude/i.test(k))
+				.map((k) => {
+					const v = process.env[k] ?? "";
+					return { name: JSON.stringify(k), length: v.length, empty: v.length === 0, hasOuterWhitespace: v !== v.trim(), hasQuotes: /^["']|["']$/.test(v.trim()), looksLikeAnthropicKey: v.trim().startsWith("sk-ant-") };
+				}),
+		};
+	}
+	return Response.json(body, { headers: { "Cache-Control": "no-store" } });
 }
 
 function cleanHistory(raw) {
