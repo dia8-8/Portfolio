@@ -288,6 +288,7 @@ code, kbd { font-family: var(--mono); }
 
 /* ---------- CTA ---------- */
 .cta { text-align: center; padding: 4rem 1.5rem; border: 1px solid var(--border); border-radius: calc(var(--radius) + 10px); background: radial-gradient(40rem 20rem at 50% -20%, rgba(139, 123, 255, 0.22), transparent 70%), var(--surface); }
+.cta .section__head { margin-inline: auto; margin-bottom: 0; }
 .cta .section__lead { max-width: 50ch; margin-inline: auto; }
 .cta__row { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin-top: 2rem; }
 
